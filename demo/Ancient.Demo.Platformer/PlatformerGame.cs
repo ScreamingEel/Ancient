@@ -11,6 +11,7 @@ namespace Ancient.Demo.Platformer
         private SpriteBatch? _spriteBatch;
         private Color _drawColor = Color.CornflowerBlue;
 
+        private Slime _player;
         private List<Entity> _entities;
 
         public PlatformerGame()
@@ -34,9 +35,10 @@ namespace Ancient.Demo.Platformer
         {
             _spriteBatch = new(GraphicsDevice);
 
-            Slime slime = new Slime();
-            slime.SetTexture(_spriteBatch, Content);
-            _entities.Add(slime);
+            _player = new Slime();
+            _player.SetTexture(_spriteBatch, Content);
+
+            _entities.Add(_player);
 
             base.LoadContent();
         }
@@ -47,8 +49,10 @@ namespace Ancient.Demo.Platformer
                 _drawColor = Color.Black;
 
             foreach (var entity in _entities)
+            {
                 if (entity is IUpdatableEntity updatableEntity)
                     updatableEntity.Update(gameTime);
+            }
 
             base.Update(gameTime);
         }
