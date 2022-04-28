@@ -11,7 +11,7 @@ namespace Ancient.Demo.Platformer
         private SpriteBatch? _spriteBatch;
         private Color _drawColor = Color.CornflowerBlue;
 
-        private Slime _player;
+        private Slime? _player;
         private List<Entity> _entities;
 
         public PlatformerGame()
