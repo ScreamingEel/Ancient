@@ -11,14 +11,35 @@ do
     Console.WriteLine("How many runs?");
     long runs = Convert.ToInt32(Console.ReadLine());
     //ListBased(runs);
-    TypedContext(runs);
+    //TypedContext(runs);
+    TestThings(runs);
 
     Console.WriteLine("Stop here (y)?");
-    
+
     if (Console.ReadLine() == "y")
         nextRound = false;
 }
 while (nextRound);
+
+void TestThings(long runs)
+{
+    Console.WriteLine("Test memory consumption");
+    Stopwatch stopwatch = Stopwatch.StartNew();
+
+    List<MoneyComponent> money1 = new();
+    List<MoneyComponent> money2 = new();
+    List<MoneyComponent> money3 = new();
+    for (long i = 0; i < runs; i++)
+    {
+        MoneyComponent moneyComponent = new();
+        money1.Add(moneyComponent);
+        money2.Add(moneyComponent);
+        money3.Add(moneyComponent);
+    }
+
+    stopwatch.Stop();
+    TakenTime(stopwatch.ElapsedMilliseconds, runs);
+}
 
 void TypedContext(long runs)
 {
