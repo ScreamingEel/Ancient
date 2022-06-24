@@ -35,19 +35,24 @@ public class EntityManager : IEntityManager
 
     public int CountEntities() => _entities.Count;
 
+    /// <exception cref="ComponentSetNotExistException" />
     public void AddComponent<T>(int entityId, T component) where T : IEntityComponent
     {
-        var componentSet = _entityComponents[typeof(T).Name];
-
-        if (componentSet is null)
-            return;
-
+        var componentSet = GetComponentSet<T>();
         componentSet[entityId] = component;
     }
 
+    /// <exception cref="ComponentSetNotExistException" />
     public T? GetComponent<T>(int entityId) where T : IEntityComponent
     {
-        var component = _entityComponents[typeof(T).Name][entityId];
-        return component is null ? default(T) : (T)component;
+        var componentSet = GetComponentSet<T>();
+        return componentSet.ContainsKey(entityId) ? (T)componentSet[entityId] : default(T);
+    }
+
+    private Dictionary<int, IEntityComponent> GetComponentSet<T>()
+    {
+        string componentName = typeof(T).Name;
+        return _entityComponents.ContainsKey(componentName) ? _entityComponents[componentName] : 
+            throw new ComponentSetNotExistException(componentName);
     }
 }
