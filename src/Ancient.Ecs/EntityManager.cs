@@ -49,6 +49,13 @@ public class EntityManager : IEntityManager
         return componentSet.ContainsKey(entityId) ? (T)componentSet[entityId] : default(T);
     }
 
+    /// <exception cref="ComponentSetNotExistException" />
+    public IEnumerable<T> GetAllComponents<T>() where T : IEntityComponent
+    {
+        var componentSet = GetComponentSet<T>();
+        return componentSet.Values.Cast<T>();
+    }
+
     private Dictionary<int, IEntityComponent> GetComponentSet<T>()
     {
         string componentName = typeof(T).Name;

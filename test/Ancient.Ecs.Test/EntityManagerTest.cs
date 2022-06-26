@@ -16,11 +16,6 @@ public class EntityManagerTest
         _sut = new(configuration);
     }
 
-    private void CustomSutConfiguration(EntityManagerConfiguration configuration)
-    {
-        _sut = new(configuration);
-    }
-
     private void CreateDummyEntities(int amount)
     {
         for (int i = 0; i < amount; i++)
@@ -121,5 +116,17 @@ public class EntityManagerTest
         var result = _sut.GetComponent<TestComponent>(0);
 
         result.Should().BeNull();
+    }
+
+    [Theory, AutoData]
+    public void TestGetAllComponents(List<TestComponent> testComponents)
+    {
+        ConfigureSutComplete();
+        for (int i = 0; i < testComponents.Count; i++)
+            _sut.AddComponent<TestComponent>(i, testComponents[i]);
+
+        var result = _sut.GetAllComponents<TestComponent>();
+
+        result.Should().Contain(testComponents);
     }
 }
