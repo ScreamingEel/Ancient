@@ -39,7 +39,18 @@ public class EntityManager : IEntityManager
     public void AddComponent<T>(int entityId, T component) where T : IEntityComponent
     {
         var componentSet = GetComponentSet<T>();
+
+        if (component is EntityComponentBase componentBase)
+            componentBase.EntityId = entityId;
+
         componentSet[entityId] = component;
+    }
+
+    public void RemoveComponent<T>(int entityId) where T : IEntityComponent
+    {
+        var componentSet = GetComponentSet<T>();
+        if (componentSet.ContainsKey(entityId))
+            componentSet.Remove(entityId);
     }
 
     /// <exception cref="ComponentSetNotExistException" />

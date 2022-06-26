@@ -1,13 +1,10 @@
-﻿using Ancient.Demo.Platformer.Common;
-using Ancient.Demo.Platformer.Common.Physics;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
+﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace Ancient.Demo.Platformer.Entities
 {
-    public class Slime : Entity, IDrawableEntity, IUpdatableEntity, IGravity
+    public class Slime
     {
         public Texture2D? Texture => _texture;
 
@@ -16,8 +13,8 @@ namespace Ancient.Demo.Platformer.Entities
             get { return _acceleration; }
             set { _acceleration = value; }
         }
-        public Vector2 Velocity 
-        { 
+        public Vector2 Velocity
+        {
             get { return _velocity; }
             set { _velocity = value; }
         }

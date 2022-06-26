@@ -13,6 +13,7 @@ public class EntityManagerTest
         EntityManagerConfiguration configuration = new();
         configuration.AddComponentSet<TestComponent>();
         configuration.AddComponentSet<NameComponent>();
+        configuration.AddComponentSet<AgeComponent>();
         _sut = new(configuration);
     }
 
@@ -128,5 +129,16 @@ public class EntityManagerTest
         var result = _sut.GetAllComponents<TestComponent>();
 
         result.Should().Contain(testComponents);
+    }
+
+    [Fact]
+    public void TestSetEntityIdForEntityComponentBase()
+    {
+        ConfigureSutComplete();
+        AgeComponent ageComponent = new AgeComponent();
+
+        _sut.AddComponent(20, ageComponent);
+
+        ageComponent.EntityId.Should().Be(20);
     }
 }

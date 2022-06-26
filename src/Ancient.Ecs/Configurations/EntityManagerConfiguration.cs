@@ -1,4 +1,4 @@
-﻿namespace Ancient.Ecs.Configurations;
+﻿namespace Ancient.Ecs;
 public class EntityManagerConfiguration
 {
     internal readonly Dictionary<string, Dictionary<int, IEntityComponent>> ComponentSets;
