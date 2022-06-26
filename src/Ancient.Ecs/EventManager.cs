@@ -10,7 +10,12 @@ public class EventManager : IEventManager
 
     public void Subscribe<T>(EcsSystem ecsSystem) where T : IEcsEvent
     {
-        _eventSets[GetEventName<T>()].Add(ecsSystem);
+        var eventName = GetEventName<T>();
+
+        if (_eventSets.ContainsKey(eventName))
+            _eventSets[eventName].Add(ecsSystem);
+        else
+            _eventSets[eventName] = new HashSet<EcsSystem> { ecsSystem };
     }
 
     public void RemoveSubscription<T>(EcsSystem ecsSystem) where T : IEcsEvent

@@ -1,10 +1,10 @@
 ﻿namespace Ancient.Ecs;
 public abstract class EcsSystem
 {
-    protected readonly EntityManager EntityManager;
-    private readonly EventManager EventManager;
+    protected readonly IEntityManager EntityManager;
+    private readonly IEventManager EventManager;
 
-    protected EcsSystem(EntityManager entityManager, EventManager eventManager)
+    protected EcsSystem(IEntityManager entityManager, IEventManager eventManager)
     {
         EntityManager = entityManager;
         EventManager = eventManager;

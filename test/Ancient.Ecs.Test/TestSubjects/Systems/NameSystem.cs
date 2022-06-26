@@ -1,9 +1,13 @@
 ﻿namespace Ancient.Ecs.Test.TestSubjects.Systems;
 public class NameSystem : EcsSystem
 {
-    public NameSystem(EntityManager entityManager, EventManager eventManager) 
+    private readonly string _changeNameTo;
+
+    public NameSystem(IEntityManager entityManager, IEventManager eventManager, 
+        string changeNameTo = "") 
         : base(entityManager, eventManager)
     {
+        _changeNameTo = changeNameTo;
         SubscribeEvent<FirstNameChangedEvent>();
     }
 
@@ -14,7 +18,12 @@ public class NameSystem : EcsSystem
             var nameComponent = EntityManager.GetComponent<NameComponent>(nameChangedEvent.EntityId);
 
             if (nameComponent is not null)
-                nameComponent.FirstName = "Test successful";
+                nameComponent.FirstName = _changeNameTo;
         }
+    }
+
+    public void RemoveSubscription()
+    {
+        RemoveEventSubscribtion<FirstNameChangedEvent>();
     }
 }
