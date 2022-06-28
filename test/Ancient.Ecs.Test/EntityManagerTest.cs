@@ -141,4 +141,16 @@ public class EntityManagerTest
 
         ageComponent.EntityId.Should().Be(20);
     }
+
+    [Theory, AutoData]
+    public void TestRemoveComponent(TestComponent testComponent)
+    {
+        ConfigureSutComplete();
+        _sut.AddComponent(0, testComponent);
+
+        _sut.RemoveComponent<TestComponent>(0);
+        var result = _sut.GetComponent<TestComponent>(0);
+
+        result.Should().BeNull();
+    }
 }
